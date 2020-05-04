@@ -15,3 +15,45 @@
   margin: 5rem;
 }
 
+body{
+  background-color: white;
+}
+ul{
+  list-style: none;
+  margin-top: 5rem;
+ 
+}
+ul li a{
+  padding: 0.5rem;
+  text-decoration: none;
+  color: rgb(92, 187, 245);
+  font-weight: 700;
+  font-size: 2rem;
+  border-radius: 10%;
+  color: black;
+}
+a:hover{
+   background: rgba(92, 187, 245, 0.1);
+  text-decoration: none;
+  color: rgb(92, 187, 245);
+} 
+
+.feed-body{
+  border-left: 1px solid #e6ecf0;
+  border-right: 1px solid #e6ecf0;
+}
+.twitter-title{
+  font-size: 2rem;
+  font-weight: 600;
+}
+.card{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  
+}
+img{
+  width: 25%;
+
+
+}

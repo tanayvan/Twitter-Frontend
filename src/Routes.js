@@ -3,7 +3,7 @@ import{BrowserRouter,Switch, Route} from 'react-router-dom'
 import Login from './Auth/Login' 
 import Signup from './Auth/Signup'
 import Profile from './userPages/Profile'
-export default function Routes() {
+export default function Routes(props) {
     return (
         <BrowserRouter>
             <Switch>

@@ -2,6 +2,7 @@
 
 import { API } from "./Backend";
 
+//sign in call to backend
 export const signInCall = (userInfo)=>{
     return fetch(`${API}/signin`,({
         method:"POST",
@@ -14,6 +15,7 @@ export const signInCall = (userInfo)=>{
     }).catch(error => console.log(error))
 }
 
+//Sign Up call to backend
 export const singUpCall = (userInfo) => {
     return fetch(`${API}/signup`,({
         method:"POST",
@@ -24,4 +26,21 @@ export const singUpCall = (userInfo) => {
     })).then(response => {
         return response.json()
     }).catch(error => console.log(error))
+}
+
+//For Storing Token in Local Storage
+export const authenticate = (data,next) => {
+    if(typeof window !== "undefined"){
+        localStorage.setItem("jwt",JSON.stringify(data))
+        next()
+    }
+}
+
+//For Loading Profile Information
+export const getUser = (user) => {
+    return fetch(`${API}/${user}`,{
+        method:"GET"
+    }).then(response => {
+        return response.json()
+    }).catch((error => console.log(error)))
 }
