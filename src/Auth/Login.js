@@ -51,7 +51,7 @@ export default class Login extends Component {
       performRedirect(){
         if(this.state.redirect){
           return(
-            <Redirect to={`/${this.state.data.user.username}`}/>
+            <Redirect to={`/home`}/>
           )
         }
       }

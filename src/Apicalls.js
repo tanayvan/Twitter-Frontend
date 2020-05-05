@@ -1,6 +1,6 @@
 //sign in request
 
-import { API } from "./Backend";
+import { API, token } from "./Backend";
 
 //sign in call to backend
 export const signInCall = (userInfo)=>{
@@ -69,4 +69,19 @@ export const getUserTweet = (username) => {
     }).catch(error => {
         console.log(error)
     })
+}
+
+//Post A Tweet
+export const insertTweet = (tweet,user) => {
+    return fetch(`${API}/${user}`,{
+        method:"POST",
+        headers:{   
+            Accept:"application/json",
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${token.token}`
+        },body:JSON.stringify(tweet)
+    }).then(response =>{
+        return response.json()
+    }).catch(error => console.log(error))
+
 }

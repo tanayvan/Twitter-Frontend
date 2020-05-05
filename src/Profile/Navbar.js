@@ -30,7 +30,7 @@ export default class Navbar extends Component {
             <div className="col-lg-3">
           <ul className="nav flex-column">
             <li className="nav-item">
-              <Link className="nav-link active" >Home</Link>
+              <Link className="nav-link active" to='/home'>Home</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to={`/${token.user.username}`}>Profile</Link>
