@@ -57,3 +57,16 @@ export const signOutAUser=(next) => {
            .catch(error => console.log(error))
     }
 }
+
+//Get Specific User Tweets
+
+export const getUserTweet = (username) => {
+   
+    return fetch(`${API}/tweets/${username}`,{
+        method:"GET"
+    }).then(response => {
+        return response.json()
+    }).catch(error => {
+        console.log(error)
+    })
+}
