@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import { token } from '../Backend'
+
 import { signOutAUser } from '../Apicalls'
 
 export default class Navbar extends Component {
@@ -33,7 +33,7 @@ export default class Navbar extends Component {
               <Link className="nav-link active" to='/home'>Home</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to={`/${token.user.username}`}>Profile</Link>
+              <Link className="nav-link" to={`/${JSON.parse(localStorage.getItem('jwt')).user.username}`}>Profile</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" >Explore</Link>

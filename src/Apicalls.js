@@ -1,6 +1,6 @@
 //sign in request
 
-import { API, token } from "./Backend";
+import { API, } from "./Backend";
 
 //sign in call to backend
 export const signInCall = (userInfo)=>{
@@ -78,10 +78,34 @@ export const insertTweet = (tweet,user) => {
         headers:{   
             Accept:"application/json",
             "Content-Type":"application/json",
-            Authorization:`Bearer ${token.token}`
+            Authorization:`Bearer ${JSON.parse(localStorage.getItem('jwt')).token}`
         },body:JSON.stringify(tweet)
     }).then(response =>{
         return response.json()
     }).catch(error => console.log(error))
 
+}
+//Get Users For Discover People
+export const getAllUser = ()=>{
+    return fetch(`${API}/getalluser`,{
+        method:"GET"
+    }).then(response =>{
+        return response.json()
+    }).catch(error => console.log(error))
+}
+
+//Follow A User
+export const followAUser =(usertoFollow) => {
+    console.log(JSON.parse(localStorage.getItem('jwt')).user.username)
+    return fetch(`${API}/${JSON.parse(localStorage.getItem('jwt')).user.username}`,{
+        method:"PATCH",
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${JSON.parse(localStorage.getItem('jwt')).token}`
+            },
+            body:JSON.stringify(usertoFollow)
+    }).then(response => {
+        return response.json()
+    }).catch(error => console.log(error))
 }

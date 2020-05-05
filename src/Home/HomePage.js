@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Navbar from '../Profile/Navbar'
 import DiscoverPeople from '../Profile/DiscoverPeople'
 import { insertTweet } from '../Apicalls'
-import { token } from '../Backend'
+
 
 export default class HomePage extends Component {
     constructor(){
@@ -22,7 +22,7 @@ export default class HomePage extends Component {
     handleClick(){
         
         console.log(this.state.tweet)
-        insertTweet({tweet:this.state.tweet},token.user.username)
+        insertTweet({tweet:this.state.tweet},JSON.parse(localStorage.getItem('jwt')).user.username)
         .then(data => {
             if(data.error){
                 this.setState({
