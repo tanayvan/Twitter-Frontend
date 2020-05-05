@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import { singUpCall, authenticate } from '../Apicalls'
+import { signUpCall } from '../Apicalls'
 
 export default class Signup extends Component {
   constructor(){
@@ -24,7 +24,7 @@ export default class Signup extends Component {
   }
   handleClick(event){
     event.preventDefault()
-    singUpCall({
+    signUpCall({
       name:this.state.name,
       username:this.state.username,
       email:this.state.email,
@@ -36,13 +36,13 @@ export default class Signup extends Component {
           error:data.error
         })
       }else{
-        authenticate(data,() =>{
+        
           console.log("Success")
           this.setState({
             redirect:true,
-            error:""
+            error:"",
           })
-        })
+        
        
       }
     })

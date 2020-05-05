@@ -54,6 +54,8 @@ a:hover{
 }
 img{
   width: 25%;
-
-
+}
+ul li button{
+  padding: 0.5rem;
+  margin-left: 1rem
 }

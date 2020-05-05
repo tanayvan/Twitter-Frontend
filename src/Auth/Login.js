@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import { signInCall } from '../Apicalls'
+import { signInCall, authenticate } from '../Apicalls'
 
 
 export default class Login extends Component {
@@ -8,7 +8,7 @@ export default class Login extends Component {
         super()
             this.state={
             email:"tanayvan@gmail.com",
-            password:"tanayvan",
+            password:"rock1999",
             error:"",
             redirect:false,
             data:""
@@ -33,12 +33,14 @@ export default class Login extends Component {
               error:data.error
             })
           }else{
-            console.log(data)
-            this.setState({
-              data:data,
-              redirect:true
+            authenticate(data,() =>{
+              console.log("Success")
+              this.setState({
+                redirect:true,
+                error:"",
+                data:data
+              })
             })
-        
             
           }
         }).catch(error => {
