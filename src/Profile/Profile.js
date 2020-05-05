@@ -29,7 +29,7 @@ export default class  Profile extends Component {
                 console.log(data.error)
             }
             else{
-
+              
                 this.setState({
                     data:data,
                     

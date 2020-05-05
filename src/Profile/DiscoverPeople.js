@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getAllUser, followAUser } from '../Apicalls'
+import { getAllUser, followAUser, getUser } from '../Apicalls'
 
 
 export default class DiscoverPeople extends Component {
@@ -8,15 +8,31 @@ export default class DiscoverPeople extends Component {
     super()
     this.state={
       users:[],
-      isFollowing:false
+      data:[]
     }
     this.handleClick=this.handleClick.bind(this)
   }
   componentDidMount(){
     this.loadAllUserInfo()
   }
-  
+  getUserinfo(){
+    const token=JSON.parse(localStorage.getItem("jwt"))
+    getUser(token.user.username).then(data => {
+        if(data.error){
+            console.log(data.error)
+        }
+        else{
+          
+            this.setState({
+                data:data,
+                
+            })    
+            console.log(this.state.data)   
+    }
+  })
+}
   loadAllUserInfo(){
+    this.getUserinfo()
     getAllUser().then(data =>{
       this.setState({
         users:data
@@ -43,7 +59,9 @@ export default class DiscoverPeople extends Component {
             <div className="card-body">
                 <h5 className="card-title">{user.name}</h5>
               <h6 className="card-subtitle mb-2 text-muted">@{user.username}</h6>
-              <button className="btn btn-sm btn-outline-primary" onClick={()=>{this.handleClick(index,user)}}>Follow</button>
+              <button className="btn btn-sm btn-outline-primary" onClick={()=>{this.handleClick(index,user)}}>{
+                (this.state.data.following.includes(user.username)?"Following":"Follow")
+              }</button>
             </div>
           </div>
                 )
