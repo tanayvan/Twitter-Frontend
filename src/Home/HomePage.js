@@ -22,6 +22,7 @@ export default class HomePage extends Component {
             [event.target.name]:event.target.value
         })
     }
+    
     componentDidMount(){
         this.setState({
           loading:true
@@ -44,7 +45,7 @@ export default class HomePage extends Component {
                     userData:data.following,
                     
                 })  
-                console.log(this.state.userData)
+              //  console.log(this.state.userData)
                 
         }
           

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { getAllUser, followAUser } from '../Apicalls'
+import FollowButton from '../followButtons/FollowButton'
+import UnfollowButton from '../followButtons/UnfollowButton'
 
 
 export default class DiscoverPeople extends Component {
@@ -7,9 +9,7 @@ export default class DiscoverPeople extends Component {
   constructor(props){
     super(props)
     this.state={
-      users:[],
-      data:[]
-      
+      users:[]
     }
     this.handleClick=this.handleClick.bind(this)
     this.loadAllUserInfo=this.loadAllUserInfo.bind(this)
@@ -20,7 +20,7 @@ export default class DiscoverPeople extends Component {
    
  }
  componentDidUpdate(prevProps, prevState){
-  if (prevState.data !== this.state.data) {
+  if (prevState.users !== this.state.users) {
     this.loadAllUserInfo()
     this.setState({
       reload:false
@@ -66,9 +66,8 @@ export default class DiscoverPeople extends Component {
             <div className="card-body">
                 <h5 className="card-title">{user.name}</h5>
               <h6 className="card-subtitle mb-2 text-muted">@{user.username}</h6>
-              <button className="btn btn-sm btn-outline-primary follow-button" onClick={()=>{this.handleClick(index,user)}}>
-                {(this.props.data.includes(user.username)?"Following":"Follow")
-                }</button>
+              {(this.props.data.includes(user.username)?<UnfollowButton user={user} index={index}/>:<FollowButton user={user} index={index}/>)
+                }
             </div>
           </div>
                 )

@@ -109,3 +109,19 @@ export const followAUser =(usertoFollow) => {
         return response.json()
     }).catch(error => console.log(error))
 }
+//unFollowAuser
+//unFollowerUsername
+export const unFollowAUser =(usertoUnFollow) => {
+    console.log(JSON.parse(localStorage.getItem('jwt')).user.username)
+    return fetch(`${API}/unfollow/${JSON.parse(localStorage.getItem('jwt')).user.username}`,{
+        method:"PATCH",
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${JSON.parse(localStorage.getItem('jwt')).token}`
+            },
+            body:JSON.stringify(usertoUnFollow)
+    }).then(response => {
+        return response.json()
+    }).catch(error => console.log(error))
+}

@@ -24,7 +24,9 @@ export default class  Profile extends Component {
       loading:false
     })
   }
+  
   getUserProfileinfo(){
+    //this method is same as getuserinfo  but to check the folllowing of Signed In User ,we need list of following user to show Follow /Following Button
     const token=JSON.parse(localStorage.getItem("jwt"))
     getUser(token.user.username).then(data => {
         if(data.error){
@@ -36,7 +38,7 @@ export default class  Profile extends Component {
                 userData:data.following,
                 
             })  
-            console.log(this.state.userData)
+            
             
     }
   })}
