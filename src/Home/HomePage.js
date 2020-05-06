@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import Navbar from '../Profile/Navbar'
 import DiscoverPeople from '../Profile/DiscoverPeople'
-import { insertTweet } from '../Apicalls'
+import { insertTweet, getUser } from '../Apicalls'
 
 
 export default class HomePage extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
             tweet:"",
-            error:""
+            error:"",
+            userData:[],
+            loading:true
         }
+        this.getUserinfo()
         this.handleChange=this.handleChange.bind(this)
         this.handleClick=this.handleClick.bind(this)
     }
@@ -19,6 +22,43 @@ export default class HomePage extends Component {
             [event.target.name]:event.target.value
         })
     }
+    componentDidMount(){
+        this.setState({
+          loading:true
+        })
+      
+        this.getUserinfo()
+        this.setState({
+          loading:false
+        })
+      }
+    getUserinfo(){
+        const token=JSON.parse(localStorage.getItem("jwt"))
+        getUser(token.user.username).then(data => {
+            if(data.error){
+                console.log(data.error)
+            }
+            else{
+              
+                this.setState({
+                    userData:data.following,
+                    
+                })  
+                console.log(this.state.userData)
+                
+        }
+          
+        }).catch(error =>console.log(error))
+    }
+    componentDidUpdate(prevProps, prevState){
+        if (prevState.userData !== this.state.userData) {
+       
+      this.getUserinfo()
+      this.setState({
+        loading:false
+      })
+        }
+      }
     handleClick(){
         
         console.log(this.state.tweet)
@@ -41,8 +81,15 @@ export default class HomePage extends Component {
         })
     }
     render() {
+        if(this.state.loading){
+            return(
+              <h1>Loading</h1>
+            )
+          }
+            else{
         return (
             <div className="container">
+              
       <div className="row">
         <Navbar />
         <div className="col-lg-6 mt-5 feed-body">
@@ -63,10 +110,11 @@ export default class HomePage extends Component {
           </div>
          
         </div>
-        <DiscoverPeople />
+        <DiscoverPeople data={this.state.userData}/>
         </div>
       </div>
    
         )
     }
+}
 }

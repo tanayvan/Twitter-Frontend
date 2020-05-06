@@ -10,6 +10,7 @@ export default class  Profile extends Component {
             data:"",
             tweetsData:[],
             loading:true,
+            userData:[]
         }
     }
   componentDidMount(){
@@ -18,10 +19,27 @@ export default class  Profile extends Component {
     })
     this.getTweetsOfUser()
     this.getUserinfo()
+    this.getUserProfileinfo()
     this.setState({
       loading:false
     })
   }
+  getUserProfileinfo(){
+    const token=JSON.parse(localStorage.getItem("jwt"))
+    getUser(token.user.username).then(data => {
+        if(data.error){
+            console.log(data.error)
+        }
+        else{
+          
+            this.setState({
+                userData:data.following,
+                
+            })  
+            console.log(this.state.userData)
+            
+    }
+  })}
     getUserinfo(){
         const username=this.props.match.params.username
         getUser(username).then(data => {
@@ -31,8 +49,8 @@ export default class  Profile extends Component {
             else{
               
                 this.setState({
-                    data:data,
                     
+                    data:data
                 })  
                 
                 
@@ -63,6 +81,7 @@ export default class  Profile extends Component {
     componentDidUpdate(prevProps, prevState){
       if (prevState.data !== this.state.data) {
         this.getTweetsOfUser()
+        this.getUserProfileinfo()
     this.getUserinfo()
     this.setState({
       loading:false
@@ -79,7 +98,7 @@ export default class  Profile extends Component {
         else{
         return (
             <div className="container">
-             
+            
       
       <div className="row">
         <Navbar />
@@ -114,7 +133,7 @@ export default class  Profile extends Component {
          
           
         </div>
-        <DiscoverPeople />
+        <DiscoverPeople data={this.state.userData} hello='Hii'/>
       </div>
     </div>
         )
