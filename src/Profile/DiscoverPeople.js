@@ -13,12 +13,9 @@ export default class DiscoverPeople extends Component {
     }
     this.handleClick=this.handleClick.bind(this)
     this.loadAllUserInfo=this.loadAllUserInfo.bind(this)
-    
+    this.loadAllUserInfo()
   }
- componentWillMount(){
-   this.loadAllUserInfo()
-   
- }
+ 
  componentDidUpdate(prevProps, prevState){
   if (prevState.users !== this.state.users) {
     this.loadAllUserInfo()

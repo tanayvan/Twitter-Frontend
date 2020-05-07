@@ -109,11 +109,11 @@ export const followAUser =(usertoFollow) => {
         return response.json()
     }).catch(error => console.log(error))
 }
-//unFollowAuser
-//unFollowerUsername
+//unFollow A user
+
 export const unFollowAUser =(usertoUnFollow) => {
     console.log(JSON.parse(localStorage.getItem('jwt')).user.username)
-    return fetch(`${API}/unfollow/${JSON.parse(localStorage.getItem('jwt')).user.username}`,{
+    return fetch(`${API}/unfollowing/${JSON.parse(localStorage.getItem('jwt')).user.username}`,{
         method:"PATCH",
         headers:{
             Accept:"application/json",
@@ -121,6 +121,42 @@ export const unFollowAUser =(usertoUnFollow) => {
             Authorization:`Bearer ${JSON.parse(localStorage.getItem('jwt')).token}`
             },
             body:JSON.stringify(usertoUnFollow)
+    }).then(response => {
+        return response.json()
+    }).catch(error => console.log(error))
+}
+
+//Add User in Followers Tab
+export const GetFollowedByUser =(userWhoIsFollowed) => {
+    console.log(JSON.parse(localStorage.getItem('jwt')).user.username)
+    return fetch(`${API}/follower/${userWhoIsFollowed}`,{
+        method:"PUT",
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${JSON.parse(localStorage.getItem('jwt')).token}`
+            },
+            body:JSON.stringify({
+                followerUsername:JSON.parse(localStorage.getItem('jwt')).user.username
+            })
+    }).then(response => {
+        return response.json()
+    }).catch(error => console.log(error))
+}
+
+//remove User in Followers Tab
+export const GetUnFollowedByUser =(userWhoIsUnFollowed) => {
+    console.log(JSON.parse(localStorage.getItem('jwt')).user.username)
+    return fetch(`${API}/unfollower/${userWhoIsUnFollowed}`,{
+        method:"PUT",
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${JSON.parse(localStorage.getItem('jwt')).token}`
+            },
+            body:JSON.stringify({
+                unFollowerUsername:JSON.parse(localStorage.getItem('jwt')).user.username
+            })
     }).then(response => {
         return response.json()
     }).catch(error => console.log(error))

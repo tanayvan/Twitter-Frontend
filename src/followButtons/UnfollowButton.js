@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { unFollowAUser } from '../Apicalls'
+import { unFollowAUser, GetUnFollowedByUser } from '../Apicalls'
 
 export default class UnfollowButton extends Component {
     constructor(){
@@ -9,6 +9,12 @@ export default class UnfollowButton extends Component {
     handleClick(index,user){
       
        unFollowAUser({unFollowerUsername:user.username})
+       .then(data => {
+        console.log(data)
+       
+       })
+     .catch(error => console.log(error))
+     GetUnFollowedByUser(user.username)
        .then(data => {
         console.log(data)
        

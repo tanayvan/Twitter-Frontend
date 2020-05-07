@@ -56,6 +56,12 @@ export default class Login extends Component {
         }
       }
     render() {
+      if(JSON.parse(localStorage.getItem("jwt"))){
+        return(
+          <Redirect to='/home' />
+        )
+      }
+      
         return (
            
             <div className="container">

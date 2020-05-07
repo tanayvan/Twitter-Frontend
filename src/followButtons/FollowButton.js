@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { followAUser } from '../Apicalls'
+import { followAUser, GetFollowedByUser } from '../Apicalls'
 
 export default class FollowButton extends Component {
     constructor(){
@@ -15,7 +15,12 @@ export default class FollowButton extends Component {
           
           })
         .catch(error => console.log(error))
-       
+       GetFollowedByUser(user.username)
+       .then(data => {
+         console.log(data)
+        
+        })
+      .catch(error => console.log(error))
 
 
       

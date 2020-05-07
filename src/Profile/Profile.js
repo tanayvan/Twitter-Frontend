@@ -120,7 +120,7 @@ export default class  Profile extends Component {
          
             {this.state.tweetsData.map((tweet,index) => {
               return(
-                <div className="card mt-4" >
+                <div className="card mt-4" key={index} >
             <div className="card-body">
               <h5 className="card-title">{this.state.data.name}</h5>
               <h6 className="card-subtitle mb-4 text-muted">@{this.state.data.username}</h6>
