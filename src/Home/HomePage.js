@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Navbar from '../Profile/Navbar'
 import DiscoverPeople from '../Profile/DiscoverPeople'
-import { insertTweet, getUser } from '../Apicalls'
+import { insertTweet, getUser, getTweetsForFeed } from '../Apicalls'
 
 
 export default class HomePage extends Component {
@@ -11,9 +11,11 @@ export default class HomePage extends Component {
             tweet:"",
             error:"",
             userData:[],
-            loading:true
+            loading:true,
+            feedTweet:[]
         }
         this.getUserinfo()
+        this.getFeedTweet()
         this.handleChange=this.handleChange.bind(this)
         this.handleClick=this.handleClick.bind(this)
     }
@@ -32,6 +34,18 @@ export default class HomePage extends Component {
         this.setState({
           loading:false
         })
+      }
+      getFeedTweet(){
+        const token=JSON.parse(localStorage.getItem("jwt"))
+        getTweetsForFeed(token.user.username).then(data =>{
+          if(data.error){
+            return(console.log(data.error))
+          }
+          this.setState({
+            feedTweet:data.tweet
+          })
+          console.log(this.state.feedTweet)
+        }).catch(error => console.log(error))
       }
     getUserinfo(){
         const token=JSON.parse(localStorage.getItem("jwt"))
@@ -100,15 +114,21 @@ export default class HomePage extends Component {
             <button type="button" className="btn btn-dark" onClick={this.handleClick}>Tweet</button>
             
           </div>
-        
-          <div className="card mt-4">
+        {this.state.feedTweet.map((tweet,index) => {
+          return(
+            <div className="card mt-4">
             <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <h6 className="card-subtitle mb-4 text-muted">@Card subtitle</h6>
-              <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h5 className="card-title">{tweet.user.name}</h5>
+              <h6 className="card-subtitle mb-4 text-muted">@{tweet.user.username}</h6>
+          <p className="card-text">{tweet.tweet}</p>
            
             </div>
           </div>
+          )
+        }) 
+          
+        }
+          
          
         </div>
         <DiscoverPeople data={this.state.userData}/>

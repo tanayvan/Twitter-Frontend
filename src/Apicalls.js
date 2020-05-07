@@ -161,3 +161,13 @@ export const GetUnFollowedByUser =(userWhoIsUnFollowed) => {
         return response.json()
     }).catch(error => console.log(error))
 }
+
+//Get Tweets  For Feeds
+
+export const getTweetsForFeed = (username) => {
+    return fetch(`${API}/feed/${username}`,{
+        method:"GET"
+    }).then(response =>{
+        return response.json()
+    }).catch(error => console.log(error)) 
+}
