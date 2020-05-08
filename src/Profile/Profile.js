@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { getUser, getUserTweet } from '../Apicalls'
 import Navbar from './Navbar'
 import DiscoverPeople from './DiscoverPeople'
+import FollowButton from '../followButtons/FollowButton'
+import UnfollowButton from '../followButtons/UnfollowButton'
+
 
 export default class  Profile extends Component {
     constructor(){
@@ -114,6 +117,7 @@ export default class  Profile extends Component {
               <h5 className="card-title">{this.state.data.name}</h5>
               <h6 className="card-subtitle mb-2 text-muted">@{this.state.data.username}</h6>
               <p className="mt-5">Do people even read this</p>
+             {(JSON.parse(localStorage.getItem("jwt")).user.username !==this.state.data.username) && (this.state.userData.includes(this.state.data.username)?<UnfollowButton user={this.state.data} />:<FollowButton user={this.state.data}/>)}
             </div>
           </div>
           <h1 className="my-3 text-center">Your Tweets</h1>

@@ -16,14 +16,7 @@ export default class DiscoverPeople extends Component {
     this.loadAllUserInfo()
   }
  
- componentDidUpdate(prevProps, prevState){
-  if (prevState.users !== this.state.users) {
-    this.loadAllUserInfo()
-    this.setState({
-      reload:false
-    })
-  }
- }
+
  
   
 
@@ -43,7 +36,10 @@ export default class DiscoverPeople extends Component {
           )
          .then(data => {
            console.log(data)
-          
+           this.loadAllUserInfo()
+         this.setState({
+      reload:false
+    })
           })
         .catch(error => console.log(error))
        

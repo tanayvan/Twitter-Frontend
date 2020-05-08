@@ -6,7 +6,7 @@ export default class UnfollowButton extends Component {
         super()
         this.handleClick=this.handleClick.bind(this)
     }
-    handleClick(index,user){
+    handleClick(user){
       
        unFollowAUser({unFollowerUsername:user.username})
        .then(data => {
@@ -27,7 +27,7 @@ export default class UnfollowButton extends Component {
     render() {
         return (
             <div>
-                <button className="btn btn-sm btn-outline-primary follow-button" onClick={()=>{this.handleClick(this.props.index,this.props.user)}}>
+                <button className="btn btn-sm btn-outline-primary follow-button" onClick={()=>{this.handleClick(this.props.user)}}>
             Following
             </button>
             </div>
